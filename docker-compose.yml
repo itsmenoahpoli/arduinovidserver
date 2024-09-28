@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: app-laravel
+        working_dir: /var/www/html
+        volumes:
+            - ./:/var/www/html
+        environment:
+            - APP_ENV=local
+            - APP_DEBUG=${APP_DEBUG}
+            - APP_KEY=${APP_KEY}
+            - DB_CONNECTION=${APP_CONNECTION}
+            - DB_HOST=${APP_HOST}
+            - DB_PORT=${APP_PORT}    # Use MySQL default port
+            - DB_DATABASE=${DB_DATABASE}
+            - DB_USERNAME=${DB_USERNAME}
+            - DB_PASSWORD=${DB_PASSWORD}
+        depends_on:
+            - db
+        ports:
+            - "9000:9000"
+        networks:
+            - app_network
+
+    db:
+        image: mysql:8
+        container_name: app-mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}  # Root user password setup
+            MYSQL_DATABASE: ${DB_DATABASE}  # Optional: initialize a database
+            MYSQL_ALLOW_EMPTY_PASSWORD: "yes"  # Optional: allows login without a password
+        volumes:
+            - ./db-data:/var/lib/mysql
+        ports:
+            - "3306:3307"
+        networks:
+            - app_network
+
+#    phpmyadmin:
+#        image: phpmyadmin/phpmyadmin
+#        container_name: app-phpmyadmin
+#        platform: linux/arm64
+#        environment:
+#            PMA_HOST: ${DB_HOST}
+#            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+#        ports:
+#            - "8080:8080"
+#        depends_on:
+#            - db
+
+volumes:
+    dbdata:
+
+networks:
+    app_network:
+        driver: bridge
