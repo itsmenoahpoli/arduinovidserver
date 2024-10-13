@@ -9,7 +9,8 @@ use App\Http\Controllers\Api\VideosController;
 Route::prefix('v1')->group(function () {
     // Auth APIs
     Route::prefix('auth')->group(function () {
-        Route::post('login', [AuthController::class, 'signin']);
+        Route::post('signin', [AuthController::class, 'signin'])->name('api.auth.signin');
+        Route::post('signout', [AuthController::class, 'signout'])->name('api.auth.signout');
     });
 
     // Videos APIs

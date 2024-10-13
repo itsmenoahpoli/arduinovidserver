@@ -16,7 +16,8 @@ class AuthService
             $user = Auth::user();
             $token = $user->createToken(
                 now()->timestamp,
-                ['*']
+                ['*'],
+                now()->addHours(2)
             )->plainTextToken;
 
 

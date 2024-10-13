@@ -20,6 +20,14 @@ class AuthController extends Controller
     {
         $result = $this->authService->authenticate($request->validated());
 
-        return response()->json('ok', Response::HTTP_OK);
+        return response()->json($result, Response::HTTP_OK);
+    }
+
+    public function signout(Request $request) : JsonResponse
+    {
+        $user = $request->user();
+        $user->currentAccessToken()->delete();
+
+        return response()->json('User logged-out', Response::HTTP_OK);
     }
 }
