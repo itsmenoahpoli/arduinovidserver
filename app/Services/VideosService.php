@@ -18,7 +18,7 @@ class VideosService extends VideosRepository
     public function create($payload)
     {
         $payload['video_src'] = $this->upload('/videos', $payload['video_file']);
-        $payload['thumbnail_src'] = $this->upload('/videos', $payload['thumbnail_file']);
+        $payload['thumbnail_src'] = $this->upload('/video-thumbnails', $payload['thumbnail_file']);
 
         unset($payload['video_file']);
         unset($payload['thumbnail_file']);

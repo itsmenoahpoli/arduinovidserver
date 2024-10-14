@@ -30,4 +30,16 @@ class AuthController extends Controller
 
         return response()->json('User logged-out', Response::HTTP_OK);
     }
+
+    public function signup(Request $request) : JsonResponse
+    {
+        $result = null;
+
+        return response()->json('User logged-out', Response::HTTP_OK);
+    }
+
+    public function me(Request $request) : JsonResponse
+    {
+        return response()->json($request->user(), Response::HTTP_OK);
+    }
 }

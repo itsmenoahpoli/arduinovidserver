@@ -23,7 +23,7 @@ class AuthService
 
             return [
                 'token' => $token,
-                'user' => $user,
+                'user'  => $user,
             ];
         }
 
