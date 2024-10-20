@@ -19,7 +19,6 @@ php artisan key:generate
 php artisan migrate --seed
 
 php artisan serve
-
 ```
 ---
 After running the command above, the web application should be running and accessible by browser via `http://localhost:8000`
