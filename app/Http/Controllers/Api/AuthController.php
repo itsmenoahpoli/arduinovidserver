@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\SigninRequest;
+use App\Http\Requests\Auth\SignInRequest;
+use App\Http\Requests\Auth\SignupRequest;
 use App\Services\AuthService;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -16,7 +17,7 @@ class AuthController extends Controller
     )
     {}
 
-    public function signin(SigninRequest $request) : JsonResponse
+    public function signin(SignInRequest $request) : JsonResponse
     {
         $result = $this->authService->authenticate($request->validated());
 
@@ -31,11 +32,11 @@ class AuthController extends Controller
         return response()->json('User logged-out', Response::HTTP_OK);
     }
 
-    public function signup(Request $request) : JsonResponse
+    public function signup(SignupRequest $request) : JsonResponse
     {
-        $result = null;
+        $result = $this->authService->registerAccount($request->validated());
 
-        return response()->json('User logged-out', Response::HTTP_OK);
+        return response()->json($result, Response::HTTP_OK);
     }
 
     public function me(Request $request) : JsonResponse
